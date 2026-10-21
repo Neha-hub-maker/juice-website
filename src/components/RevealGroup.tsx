@@ -1,11 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useMotion } from "./MotionProvider";
-
-gsap.registerPlugin(ScrollTrigger);
+import { afterPaint, loadGsap, loadScrollMotion, watchScrollLayout } from "@/lib/motion-runtime";
 
 export function RevealGroup({ children, mode, className = "" }: {
   children: React.ReactNode;
@@ -16,15 +13,22 @@ export function RevealGroup({ children, mode, className = "" }: {
   const { animated, isLowPower } = useMotion();
   useEffect(() => {
     if (!animated || isLowPower || !root.current) return;
-    const context = gsap.context(() => {
-      const targets = root.current!.querySelectorAll(mode === "entrance" ? "[data-hero-reveal]" : "[data-flavor-card]");
-      gsap.fromTo(targets, { y: mode === "entrance" ? 28 : 22, opacity: 0 }, {
-        y: 0, opacity: 1, duration: mode === "entrance" ? .85 : .65,
-        stagger: mode === "entrance" ? .13 : .09, ease: "power2.out",
-        ...(mode === "scroll" ? { scrollTrigger: { trigger: root.current, start: "top 90%", once: true } } : {}),
-      });
-    }, root);
-    return () => context.revert();
+    return afterPaint(async cancelled => {
+      const runtime = mode === "scroll" ? await loadScrollMotion() : { gsap: await loadGsap(), ScrollTrigger: null };
+      if (cancelled() || !root.current) return;
+      const { gsap, ScrollTrigger } = runtime;
+      const context = gsap.context(() => {
+        const targets = root.current!.querySelectorAll(mode === "entrance" ? "[data-hero-reveal]" : "[data-flavor-card]");
+        // Keep the hero text painted; opacity entrances would delay its LCP.
+        gsap.fromTo(targets, { y: mode === "entrance" ? 12 : 22, ...(mode === "scroll" ? { opacity: 0 } : {}) }, {
+          y: 0, opacity: 1, duration: mode === "entrance" ? .85 : .65,
+          stagger: mode === "entrance" ? .13 : .09, ease: "power2.out",
+          ...(mode === "scroll" ? { scrollTrigger: { trigger: root.current, start: "top 90%", once: true } } : {}),
+        });
+      }, root);
+      const stopWatching = ScrollTrigger ? watchScrollLayout(ScrollTrigger) : undefined;
+      return () => { context.revert(); stopWatching?.(); };
+    });
   }, [animated, isLowPower, mode]);
   return <div ref={root} className={className}>{children}</div>;
 }

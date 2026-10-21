@@ -22,6 +22,8 @@ async function prepare(page: Page) {
   await page.goto("/");
   await expect(page.locator("#ritual")).toHaveAttribute("data-enhanced", "true");
   await expect(page.locator("#ritual .pin-spacer")).toHaveCount(1);
+  await page.getByRole("link", { name: "Ritual", exact: true }).click();
+  await expect(page.locator("#ritual")).toHaveAttribute("data-scene-ready", "true");
 }
 
 async function scrollToProgress(page: Page, progress: number) {

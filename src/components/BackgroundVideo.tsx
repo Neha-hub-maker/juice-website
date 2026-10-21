@@ -35,7 +35,7 @@ export function BackgroundVideo({ asset, eager = false }: { asset: VideoAsset; e
   }, [load, visible]);
 
   return <div ref={container} className="background-video" aria-hidden="true">
-    <Image src={asset.poster} alt="" fill sizes="100vw" preload={eager} placeholder="blur" blurDataURL={asset.blurDataURL} className="media-cover" />
+    <Image src={asset.poster} alt="" fill sizes="100vw" preload={eager} fetchPriority={eager ? "high" : undefined} placeholder="blur" blurDataURL={asset.blurDataURL} className="media-cover" />
     <video ref={video} src={load ? asset.path : undefined} poster={eager || seen ? asset.poster : undefined}
       autoPlay={load && visible} muted playsInline loop preload="metadata" tabIndex={-1}
       data-playing={playing && load} className="media-cover"

@@ -3,16 +3,14 @@
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { Component, useCallback, useEffect, useRef, useState, type ReactNode } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { assets } from "@/data/assets";
 import { useMotion } from "@/components/MotionProvider";
 import { Arrow } from "@/components/Arrow";
 import { useVideoVisibility } from "@/hooks/useVideoVisibility";
 import { HELIX, HELIX_COPY, ease } from "./config";
+import { afterPaint, loadScrollMotion, watchScrollLayout } from "@/lib/motion-runtime";
 
 const HelixScene = dynamic(() => import("./HelixScene"), { ssr: false });
-gsap.registerPlugin(ScrollTrigger);
 
 class SceneBoundary extends Component<{ children: ReactNode; onFailure: () => void }, { failed: boolean }> {
   state = { failed: false };
@@ -27,7 +25,7 @@ export function HelixScroll() {
   const progress = useRef(0);
   const renderRequestRef = useRef<(() => void) | null>(null);
   const { animated, isLowPower, isMobile } = useMotion();
-  const { seen, visible } = useVideoVisibility(section);
+  const { seen, visible, entered } = useVideoVisibility(section);
   const [failed, setFailed] = useState(false);
   const [ready, setReady] = useState(false);
   const eligible = animated && !isLowPower && !failed;
@@ -39,56 +37,62 @@ export function HelixScroll() {
 
   useEffect(() => {
     if (!enhanced || !section.current || !stage.current) return;
-    const element = section.current;
-    const preservePosition = (removing: boolean) => {
-      const next = element.nextElementSibling;
-      const header = document.querySelector("header")?.getBoundingClientRect().height ?? 80;
-      const bounds = element.getBoundingClientRect();
-      const below = bounds.bottom <= header;
-      const inside = bounds.top <= header && bounds.bottom > header;
-      const nextTop = next?.getBoundingClientRect().top ?? 0;
-      return () => {
-        if (!element.isConnected) return;
-        // Late loading, context loss and pause must not move the menu away from
-        // someone who has already followed an anchor past this section.
-        if (below && next) window.scrollBy({ top: next.getBoundingClientRect().top - nextTop, behavior: "instant" });
-        else if (removing && inside) window.scrollTo({ top: element.getBoundingClientRect().top + window.scrollY - header, behavior: "instant" });
+    return afterPaint(async cancelled => {
+      const { gsap, ScrollTrigger } = await loadScrollMotion();
+      if (cancelled() || !section.current || !stage.current) return;
+      const element = section.current;
+      const preservePosition = (removing: boolean) => {
+        const next = element.nextElementSibling;
+        const header = document.querySelector("header")?.getBoundingClientRect().height ?? 80;
+        const bounds = element.getBoundingClientRect();
+        const below = bounds.bottom <= header;
+        const inside = bounds.top <= header && bounds.bottom > header;
+        const nextTop = next?.getBoundingClientRect().top ?? 0;
+        return () => {
+          if (!element.isConnected) return;
+          // Late loading, context loss and pause must not move the menu away from
+          // someone who has already followed an anchor past this section.
+          if (below && next) window.scrollBy({ top: next.getBoundingClientRect().top - nextTop, behavior: "instant" });
+          else if (removing && inside) window.scrollTo({ top: element.getBoundingClientRect().top + window.scrollY - header, behavior: "instant" });
+        };
       };
-    };
-    const restoreAfterPin = preservePosition(false);
-    const beats = gsap.utils.toArray<HTMLElement>(".helix-beat", element);
-    const meter = element.querySelector<HTMLElement>(".helix-progress-fill");
-    const update = () => {
-      const p = progress.current;
-      const middle = ease((p - .42) / .18);
-      const final = ease((p - HELIX.stages.rotateEnd) / .08);
-      const opacities = [1 - middle, middle * (1 - final), final];
-      beats.forEach((beat, index) => { beat.style.opacity = String(opacities[index]); beat.style.transform = `translateY(${(1 - opacities[index]) * 12}px)`; });
-      if (meter) meter.style.transform = `scaleX(${p})`;
-      renderRequestRef.current?.();
-    };
-    const context = gsap.context(() => {
-      gsap.to(progress, { current: 1, ease: "none", onUpdate: update,
-        scrollTrigger: { id: "juice-helix", trigger: element, pin: stage.current,
-          start: () => `top ${document.querySelector("header")?.getBoundingClientRect().height ?? 80}`,
-          end: () => `+=${window.innerHeight * HELIX.scrollScreens}`,
-          scrub: HELIX.scrubSeconds, anticipatePin: 1, invalidateOnRefresh: true,
-        },
-      });
-      update();
-    }, element);
-    // Pin spacing changes the positions of the following menu/interlude triggers.
-    ScrollTrigger.refresh();
-    restoreAfterPin();
-    return () => {
-      const restoreAfterUnpin = preservePosition(true);
-      context.revert();
-      progress.current = 0;
-      beats.forEach(beat => { beat.style.removeProperty("opacity"); beat.style.removeProperty("transform"); });
-      meter?.style.removeProperty("transform");
+      const restoreAfterPin = preservePosition(false);
+      const beats = gsap.utils.toArray<HTMLElement>(".helix-beat", element);
+      const meter = element.querySelector<HTMLElement>(".helix-progress-fill");
+      const update = () => {
+        const p = progress.current;
+        const middle = ease((p - .42) / .18);
+        const final = ease((p - HELIX.stages.rotateEnd) / .08);
+        const opacities = [1 - middle, middle * (1 - final), final];
+        beats.forEach((beat, index) => { beat.style.opacity = String(opacities[index]); beat.style.transform = `translateY(${(1 - opacities[index]) * 12}px)`; });
+        if (meter) meter.style.transform = `scaleX(${p})`;
+        renderRequestRef.current?.();
+      };
+      const context = gsap.context(() => {
+        gsap.to(progress, { current: 1, ease: "none", onUpdate: update,
+          scrollTrigger: { id: "juice-helix", trigger: element, pin: stage.current,
+            start: () => `top ${document.querySelector("header")?.getBoundingClientRect().height ?? 80}`,
+            end: () => `+=${window.innerHeight * HELIX.scrollScreens}`,
+            scrub: HELIX.scrubSeconds, anticipatePin: 1, invalidateOnRefresh: true,
+          },
+        });
+        update();
+      }, element);
+      // Pin spacing changes the positions of the following menu/interlude triggers.
       ScrollTrigger.refresh();
-      restoreAfterUnpin();
-    };
+      const stopWatching = watchScrollLayout(ScrollTrigger);
+      restoreAfterPin();
+      return () => {
+        const restoreAfterUnpin = preservePosition(true);
+        context.revert();
+        stopWatching();
+        progress.current = 0;
+        beats.forEach(beat => { beat.style.removeProperty("opacity"); beat.style.removeProperty("transform"); });
+        meter?.style.removeProperty("transform");
+        ScrollTrigger.refresh();
+        restoreAfterUnpin();
+      };
+    });
   }, [enhanced]);
 
   return <section id="ritual" ref={section} className="helix-section section-dark" aria-labelledby="helix-title"
@@ -99,7 +103,7 @@ export function HelixScroll() {
           <Image src={assets.helix.path} alt="" fill sizes="(max-width: 767px) 100vw, 70vw"
             placeholder="blur" blurDataURL={assets.helix.blurDataURL} className="media-cover" />
         </div>
-        {eligible && seen && <SceneBoundary onFailure={onFailure}>
+        {eligible && entered && <SceneBoundary onFailure={onFailure}>
           <HelixScene progress={progress} mobile={isMobile} active={visible}
             renderRequestRef={renderRequestRef} onReady={onReady} onFailure={onFailure} />
         </SceneBoundary>}
