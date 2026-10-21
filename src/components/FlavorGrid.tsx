@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { flavors } from "@/data/flavors";
 import { Arrow } from "./Arrow";
+import { BrandMark } from "./BrandMark";
 
 export function FlavorGrid() {
   return <section id="flavors" className="flavors-section" aria-labelledby="flavors-title">
@@ -18,7 +19,7 @@ export function FlavorGrid() {
           </div>
           <div className="flavor-caption"><h3>{flavor.name}</h3><p>{flavor.note}</p></div>
         </li>)}
-        <li className="menu-note"><span aria-hidden="true">✳︎</span><h3>Your kind<br />of <em>fresh.</em></h3><a href="#contact">Meet us at the juice bar <Arrow diagonal /></a></li>
+        <li className="menu-note"><BrandMark /><h3>Your kind<br />of <em>fresh.</em></h3><a href="#contact">Meet us at the juice bar <Arrow diagonal /></a></li>
       </ul>
     </div>
   </section>;
