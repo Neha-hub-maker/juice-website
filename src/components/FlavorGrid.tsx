@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { flavors, PRICE_PLACEHOLDER } from "@/data/flavors";
+import { RevealGroup } from "./RevealGroup";
 
 export function FlavorGrid() {
   return <section id="flavors" className="flavors-section section-light transition-to-light" aria-labelledby="flavors-heading" tabIndex={-1}>
@@ -9,7 +10,7 @@ export function FlavorGrid() {
         <p className="flavors-intro">A little green. A little golden.<br />Something that feels like you.</p>
       </div>
       <p id="flavor-help" className="carousel-hint">Swipe or use the arrow keys to explore <span aria-hidden="true">→</span></p>
-      <ul className="flavor-grid" tabIndex={0} aria-label="Juice flavors" aria-describedby="flavor-help">
+      <RevealGroup mode="scroll"><ul className="flavor-grid" tabIndex={0} aria-label="Juice flavors" aria-describedby="flavor-help">
         {flavors.map((flavor, index) => <li className="flavor-card" key={flavor.id} data-flavor-card>
           <div className="flavor-card-lift">
             <div className="flavor-media" style={{ backgroundColor: flavor.color }}>
@@ -19,7 +20,7 @@ export function FlavorGrid() {
             <div className="flavor-copy"><h3>{flavor.name}</h3><p>{flavor.tagline}</p><p className="flavor-price">{flavor.price ?? PRICE_PLACEHOLDER}</p></div>
           </div>
         </li>)}
-      </ul>
+      </ul></RevealGroup>
     </div>
   </section>;
 }
