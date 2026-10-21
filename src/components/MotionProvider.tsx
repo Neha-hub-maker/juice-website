@@ -1,51 +1,41 @@
 "use client";
 
-import { createContext, useCallback, useContext, useState, useSyncExternalStore } from "react";
+import { createContext, useContext, useState } from "react";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { useDeviceCapabilities } from "@/hooks/useDeviceCapabilities";
 
-const noopSubscribe = () => () => {};
-const getClient = () => true;
-const getServer = () => false;
-
-export function useMediaQuery(query: string, serverValue = false) {
-  const subscribe = useCallback((callback: () => void) => {
-    const media = window.matchMedia(query);
-    media.addEventListener("change", callback);
-    return () => media.removeEventListener("change", callback);
-  }, [query]);
-  const getSnapshot = useCallback(() => window.matchMedia(query).matches, [query]);
-  const getServerSnapshot = useCallback(() => serverValue, [serverValue]);
-  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-}
-
-type DeviceNavigator = Navigator & {
-  deviceMemory?: number;
-  connection?: { saveData?: boolean; effectiveType?: string };
+type MotionState = {
+  animated: boolean;
+  reducedMotion: boolean;
+  paused: boolean;
+  isMobile: boolean;
+  isLowPower: boolean;
+  canEnhance: boolean;
+  toggle: () => void;
 };
-const getCapableDevice = () => {
-  const device = navigator as DeviceNavigator;
-  return (device.hardwareConcurrency || 2) >= 4 && (device.deviceMemory ?? 4) >= 4
-    && !device.connection?.saveData && !["slow-2g", "2g"].includes(device.connection?.effectiveType ?? "");
-};
-
-const MotionContext = createContext({ animated: false, capableDevice: false, reducedMotion: true, paused: false, toggle: () => {} });
+const MotionContext = createContext<MotionState | null>(null);
 
 export function MotionProvider({ children }: { children: React.ReactNode }) {
-  const hydrated = useSyncExternalStore(noopSubscribe, getClient, getServer);
-  const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)", true);
-  const capableDevice = useSyncExternalStore(noopSubscribe, getCapableDevice, getServer);
+  const reducedMotion = useReducedMotion();
+  const device = useDeviceCapabilities();
   const [paused, setPaused] = useState(false);
-  const animated = hydrated && !reducedMotion && !paused;
-  return <MotionContext.Provider value={{ animated, capableDevice, reducedMotion, paused, toggle: () => setPaused((value) => !value) }}>
-    <div data-motion={animated ? "enabled" : "static"}>{children}</div>
+  const animated = !reducedMotion && !paused;
+  return <MotionContext.Provider value={{ animated, reducedMotion, paused, ...device, toggle: () => setPaused(value => !value) }}>
+    <div data-motion={animated ? "enabled" : "static"} data-mobile={device.isMobile} data-low-power={device.isLowPower}>{children}</div>
   </MotionContext.Provider>;
 }
 
-export const useMotion = () => useContext(MotionContext);
+export function useMotion() {
+  const context = useContext(MotionContext);
+  if (!context) throw new Error("useMotion must be used inside MotionProvider");
+  return context;
+}
 
 export function MotionToggle() {
   const { animated, reducedMotion, paused, toggle } = useMotion();
-  return <button type="button" className="motion-toggle" onClick={toggle} aria-pressed={paused} disabled={reducedMotion}
-    aria-label={reducedMotion ? "Motion disabled by your device preference" : animated ? "Pause motion" : "Resume motion"}>
-    <span aria-hidden="true">{animated ? "Ⅱ" : "▷"}</span><span>{animated ? "Pause motion" : "Motion off"}</span>
+  const label = reducedMotion ? "Motion disabled by device preference" : animated ? "Pause motion" : "Resume motion";
+  return <button className="motion-toggle" type="button" onClick={toggle} disabled={reducedMotion}
+    aria-label={label} title={label} aria-pressed={paused}>
+    <span aria-hidden="true">{animated ? "Ⅱ" : "▷"}</span>
   </button>;
 }

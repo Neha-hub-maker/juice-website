@@ -1,9 +1,5 @@
-import { site } from "@/config/site";
-import { Arrow } from "./Arrow";
-import { BrandMark } from "./BrandMark";
-
 export function Footer() {
-  return <footer className="footer wrap"><a className="wordmark" href="#home"><BrandMark />{site.name}<span className="brand-dot">.</span></a>
-    <p>{site.tagline}</p><nav aria-label="Footer navigation">{site.contact.instagramUrl && <a href={site.contact.instagramUrl}>Instagram <Arrow diagonal /></a>}<a href="#home">Back to the top <span aria-hidden="true">↑</span></a></nav>
+  return <footer id="footer" className="section-placeholder section-dark" aria-labelledby="footer-heading">
+    <div className="container-page"><h2 id="footer-heading" className="font-display text-display">Footer</h2></div>
   </footer>;
 }

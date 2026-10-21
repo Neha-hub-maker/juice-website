@@ -1,14 +1,17 @@
 import { site } from "@/config/site";
-import { Arrow } from "./Arrow";
 import { MotionToggle } from "./MotionProvider";
-import { BrandMark } from "./BrandMark";
 
 export function Header() {
-  return <header className="header wrap">
-    <a href="#home" className="wordmark" aria-label={`${site.name} home`}><BrandMark />{site.name}<span className="brand-dot">.</span></a>
-    <nav aria-label="Main navigation" className="main-nav">
-      <a href="#ritual">The ritual</a><a href="#flavors">Our flavors</a><a href="#contact">Visit us</a>
-    </nav>
-    <div className="header-actions"><MotionToggle /><a href="#flavors" className="header-cta">Explore the menu <Arrow diagonal /></a></div>
+  return <header className="site-header">
+    <div className="navbar container-page">
+      <a className="logo" href="#home" aria-label={`${site.name} home`}>{site.name}<span aria-hidden="true">.</span></a>
+      <nav className="nav-links" aria-label="Main navigation">
+        <a href="#ritual">Ritual</a>
+        <a href="#flavors">Flavors</a>
+        <a href="#contact">Visit</a>
+        <MotionToggle />
+      </nav>
+      <a className="button button-primary order-link" href={site.orderUrl ?? "#contact"}>Order</a>
+    </div>
   </header>;
 }
