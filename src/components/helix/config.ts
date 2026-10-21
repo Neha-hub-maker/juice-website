@@ -5,7 +5,7 @@ export const HELIX = {
   scrollScreens: 4,
   scrubSeconds: 0.6,
   stages: { splashEnd: 0.25, assembleEnd: 0.6, rotateEnd: 0.85 },
-  shape: { radius: 1.05, height: 4.8, turns: 2.15, rungs: 17 },
+  shape: { radius: 1.05, height: 4.8, turns: 2.15, rungs: { desktop: 17, mobile: 10 } },
   colors: { background: "#10140f", juice: "#ff8a16", glow: "#ee5807", rim: "#ff6a16", glass: "#f5fff4" },
   environmentResolution: 64,
   sphereSegments: { desktop: 10, mobile: 8 },

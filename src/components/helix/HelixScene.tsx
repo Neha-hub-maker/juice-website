@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, type RefObject } from "react";
+import { useEffect, useMemo, useRef, useState, type RefObject } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment, Lightformer } from "@react-three/drei";
 import { DynamicDrawUsage, InstancedMesh, Mesh, MeshPhysicalMaterial, Object3D, Vector2 } from "three";
@@ -75,12 +75,13 @@ function Liquid({ progress, mobile, active, renderRequestRef, onReady, onFailure
       z += (particles.glass[j + 2] - z) * settle;
       droplet.position.set(x, y, z);
       // Droplets merge into the solid fill during the final pour.
-      droplet.scale.setScalar(particles.sizes[i] * (1 - ease((settle - .55) / .45) * .98));
+      const merge = i % 89 === 0 ? 1 - assemble * .5 : 1;
+      droplet.scale.setScalar(particles.sizes[i] * merge * (1 - ease((settle - .55) / .45) * .98));
       droplet.updateMatrix();
       instances.current.setMatrixAt(i, droplet.matrix);
     }
     instances.current.instanceMatrix.needsUpdate = true;
-    if (glassMaterial.current) glassMaterial.current.opacity = ease(settle * 4) * .34;
+    if (glassMaterial.current) glassMaterial.current.opacity = ease(settle * 4) * .17;
     if (liquid.current && liquidMaterial.current) {
       const fill = Math.max(.001, settle);
       liquid.current.scale.set(1, fill, 1);
@@ -98,7 +99,7 @@ function Liquid({ progress, mobile, active, renderRequestRef, onReady, onFailure
     <color attach="background" args={[HELIX.colors.background]} />
     <fog attach="fog" args={[HELIX.colors.background, 13, 24]} />
     <ambientLight intensity={.45} />
-    <directionalLight position={[3, 5, 5]} intensity={3.5} color="#fff2d4" />
+    <directionalLight position={[3, 5, 5]} intensity={2.5} color="#fff2d4" />
     <pointLight position={[-3, 1, -3]} intensity={22} color={HELIX.colors.rim} />
     {/* Procedural studio environment: no remote HDR or invented media assets. */}
     <Environment resolution={HELIX.environmentResolution} frames={1}>
@@ -114,7 +115,7 @@ function Liquid({ progress, mobile, active, renderRequestRef, onReady, onFailure
     <mesh renderOrder={2}>
       <latheGeometry args={[profile, mobile ? 32 : 64]} />
       <meshPhysicalMaterial ref={glassMaterial} color={HELIX.colors.glass} transparent opacity={0}
-        roughness={.08} metalness={.1} clearcoat={1} depthWrite={false} side={2} envMapIntensity={1.6} />
+        roughness={.08} metalness={0} clearcoat={1} depthWrite={false} side={2} envMapIntensity={.7} />
     </mesh>
     <mesh ref={liquid} position={[0, -2.24, 0]} scale={[1, .001, 1]}>
       <cylinderGeometry args={[.65, .54, 1.74, mobile ? 32 : 64]} />
@@ -125,17 +126,17 @@ function Liquid({ progress, mobile, active, renderRequestRef, onReady, onFailure
 }
 
 export default function HelixScene(props: HelixSceneProps) {
+  const [foreground, setForeground] = useState(() => !document.hidden);
+  useEffect(() => {
+    const update = () => setForeground(!document.hidden);
+    document.addEventListener("visibilitychange", update);
+    return () => document.removeEventListener("visibilitychange", update);
+  }, []);
   // R3F owns the renderer and declarative resources: unmount disposes geometry,
   // materials, environment render targets, renderer caches and its WebGL context.
-  return <Canvas className="helix-canvas" frameloop="demand" dpr={[1, props.mobile ? HELIX.dpr.mobile : HELIX.dpr.desktop]}
+  return <Canvas className="helix-canvas" frameloop={props.active && foreground ? "demand" : "never"} dpr={[1, props.mobile ? HELIX.dpr.mobile : HELIX.dpr.desktop]}
     camera={{ fov: 42, near: .1, far: 30, position: [0, .4, 9] }}
-    gl={{ antialias: !props.mobile, alpha: false, powerPreference: "high-performance" }}
-    fallback={<SceneUnavailable onFailure={props.onFailure} />}>
+    gl={{ antialias: !props.mobile, alpha: false, powerPreference: "high-performance" }}>
     <Liquid {...props} />
   </Canvas>;
-}
-
-function SceneUnavailable({ onFailure }: { onFailure: () => void }) {
-  useEffect(onFailure, [onFailure]);
-  return null;
 }

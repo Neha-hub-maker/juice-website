@@ -1,0 +1,36 @@
+{
+  "measuredAt": "2026-10-21T13:23:53.303Z",
+  "browser": "154.0.8037.57",
+  "softwareRenderingRequested": true,
+  "methodology": "Production build; continuous scroll from 30% to 82% over eight seconds. Count actual instanced WebGL draw submissions. Device hints overridden to exercise both quality tiers. This is a cloud browser measurement, not a hardware phone/laptop benchmark.",
+  "results": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 960
+      },
+      "deviceScaleFactor": 1,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "instances": 1200,
+      "renderedDpr": 1,
+      "sampleSeconds": 8.527300000000745,
+      "drawFrames": 9,
+      "observedFps": 1.055433724625522,
+      "p95FrameIntervalMs": 2278.699999999255
+    },
+    {
+      "viewport": {
+        "width": 375,
+        "height": 812
+      },
+      "deviceScaleFactor": 3,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "instances": 400,
+      "renderedDpr": 1.4986666666666666,
+      "sampleSeconds": 8.018400000002234,
+      "drawFrames": 55,
+      "observedFps": 6.8592237852919125,
+      "p95FrameIntervalMs": 287.8999999985099
+    }
+  ]
+}

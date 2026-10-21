@@ -2,16 +2,17 @@ import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { assets } from "../src/data/assets";
 
-test("renders the non-3D sections and ordered menu with local fonts", async ({ page }) => {
+test("renders the sections and ordered menu with local fonts", async ({ page }) => {
   const errors: string[] = [];
   const externalFonts: string[] = [];
   page.on("pageerror", error => errors.push(error.message));
   page.on("request", request => { if (/fonts\.(googleapis|gstatic)\.com/.test(request.url())) externalFonts.push(request.url()); });
+  await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   expect(await page.locator("main > section").evaluateAll(elements => elements.map(element => element.id))).toEqual(["hero", "ritual", "flavors", "interlude", "contact"]);
   await expect(page.locator(".flavor-card h3")).toHaveText(["Green juice", "Lemonade", "Berry", "Watermelon", "Orange"]);
   await expect(page.locator(".flavor-price")).toHaveText(Array(5).fill("Price coming soon"));
-  await expect(page.getByRole("heading", { name: "HelixScroll", exact: true })).toBeAttached();
+  await expect(page.getByRole("heading", { name: /Naturally.*extraordinary/ })).toBeAttached();
   await expect(page.locator("footer")).toContainText("All rights reserved.");
   await expect(page.locator("canvas")).toHaveCount(0);
   await page.evaluate(() => document.fonts.ready);
@@ -84,6 +85,9 @@ for (const hint of ["cores", "memory", "saveData"] as const) {
     await page.goto("/");
     await expect(page.locator("[data-low-power]")).toHaveAttribute("data-low-power", "true");
     await expect(page.locator("html")).not.toHaveClass(/lenis/);
+    await expect(page.locator("#ritual")).toHaveAttribute("data-enhanced", "false");
+    await expect(page.locator("#ritual canvas, #ritual .pin-spacer")).toHaveCount(0);
+    await expect(page.locator(".helix-beat")).toHaveCount(3);
     await expect(page.getByRole("heading", { name: /A brighter.*kind of fresh/ })).toBeVisible();
   });
 }

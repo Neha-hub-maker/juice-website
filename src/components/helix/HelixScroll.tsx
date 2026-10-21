@@ -7,6 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { assets } from "@/data/assets";
 import { useMotion } from "@/components/MotionProvider";
+import { Arrow } from "@/components/Arrow";
 import { useVideoVisibility } from "@/hooks/useVideoVisibility";
 import { HELIX, HELIX_COPY, ease } from "./config";
 
@@ -30,13 +31,31 @@ export function HelixScroll() {
   const [failed, setFailed] = useState(false);
   const [ready, setReady] = useState(false);
   const eligible = animated && !isLowPower && !failed;
-  const enhanced = eligible && ready;
+  // Reserve the scroll experience as soon as it is nearby, before the lazy WebGL
+  // chunk finishes. The poster stays visible until the scene is ready.
+  const enhanced = eligible && seen;
   const onReady = useCallback(() => setReady(true), []);
   const onFailure = useCallback(() => { setFailed(true); setReady(false); }, []);
 
   useEffect(() => {
     if (!enhanced || !section.current || !stage.current) return;
     const element = section.current;
+    const preservePosition = (removing: boolean) => {
+      const next = element.nextElementSibling;
+      const header = document.querySelector("header")?.getBoundingClientRect().height ?? 80;
+      const bounds = element.getBoundingClientRect();
+      const below = bounds.bottom <= header;
+      const inside = bounds.top <= header && bounds.bottom > header;
+      const nextTop = next?.getBoundingClientRect().top ?? 0;
+      return () => {
+        if (!element.isConnected) return;
+        // Late loading, context loss and pause must not move the menu away from
+        // someone who has already followed an anchor past this section.
+        if (below && next) window.scrollBy({ top: next.getBoundingClientRect().top - nextTop, behavior: "instant" });
+        else if (removing && inside) window.scrollTo({ top: element.getBoundingClientRect().top + window.scrollY - header, behavior: "instant" });
+      };
+    };
+    const restoreAfterPin = preservePosition(false);
     const beats = gsap.utils.toArray<HTMLElement>(".helix-beat", element);
     const meter = element.querySelector<HTMLElement>(".helix-progress-fill");
     const update = () => {
@@ -60,17 +79,20 @@ export function HelixScroll() {
     }, element);
     // Pin spacing changes the positions of the following menu/interlude triggers.
     ScrollTrigger.refresh();
+    restoreAfterPin();
     return () => {
+      const restoreAfterUnpin = preservePosition(true);
       context.revert();
       progress.current = 0;
       beats.forEach(beat => { beat.style.removeProperty("opacity"); beat.style.removeProperty("transform"); });
       meter?.style.removeProperty("transform");
       ScrollTrigger.refresh();
+      restoreAfterUnpin();
     };
-  }, [enhanced, isMobile]);
+  }, [enhanced]);
 
   return <section id="ritual" ref={section} className="helix-section section-dark" aria-labelledby="helix-title"
-    data-enhanced={enhanced} data-helix-failed={failed}>
+    data-enhanced={enhanced} data-scene-ready={eligible && ready} data-helix-failed={failed}>
     <div className="helix-stage" ref={stage}>
       <div className="helix-visual" aria-hidden="true">
         <div className="helix-poster">
@@ -96,7 +118,7 @@ export function HelixScroll() {
         <div className="helix-scroll-note" aria-hidden="true"><span>SCROLL TO SHAPE THE FRESH</span>
           <div className="helix-progress"><div className="helix-progress-fill" /></div>
         </div>
-        <a className="helix-skip" href="#flavors">Explore the flavors <span aria-hidden="true">↗</span></a>
+        <a className="helix-skip" href="#flavors">Explore the flavors <Arrow /></a>
       </div>
     </div>
   </section>;

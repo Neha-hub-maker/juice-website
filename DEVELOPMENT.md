@@ -19,7 +19,7 @@ The original media lives in `assets/`. The optimization script fully decodes and
 
 Edit `SITE_NAME`, tagline, contact placeholders and `orderUrl` in `src/config/site.ts`. Until an order URL is supplied, the navbar Order link goes to the OrderCTA placeholder.
 
-The page now renders the full non-3D sections: Hero, FlavorGrid, Interlude, OrderCTA and Footer. HelixScroll remains a placeholder for a separate task; no WebGL is mounted.
+The page now renders the full non-3D sections: Hero, FlavorGrid, Interlude, OrderCTA and Footer. HelixScroll now renders a lazy, scroll-driven R3F liquid scene between Hero and FlavorGrid.
 
 Hero uses the same pouring clip on desktop and mobile, with a full-screen crop, dark overlay and a static blur-backed poster. This footage preserves a clear pouring-glass composition; the optional vertical synthetic splash clip is not used. Background videos request metadata, play only while onscreen, pause in hidden tabs, release their sources when motion is disabled and retain the poster if playback fails. The interlude source is attached only within 300px of the viewport. Its parallax is restricted to capable desktop devices.
 
@@ -32,3 +32,42 @@ The Tailwind v4 design system is defined in `src/app/globals.css`, using CSS-fir
 Hooks in `src/hooks/` expose reduced motion, viewport/mobile state, low-power hints and combined capabilities with SSR-safe defaults. Low-power detection uses hardwareConcurrency, deviceMemory when present, saveData and slow connection hints. It is a conservative heuristic, not a battery/GPU measurement.
 
 `MotionProvider` combines preferences with the navbar pause control. `SmoothScroll` uses one GSAP ticker callback to drive Lenis (`autoRaf: false`) and forwards Lenis scroll events to ScrollTrigger. It removes that callback and listener and destroys Lenis on cleanup, including Strict Mode effect replay. Reduced-motion, mobile and low-power devices use native anchor scrolling. Future animations should consume `useMotion()` and respect its `animated` and `canEnhance` values, while retaining static fallbacks.
+
+
+The signature helix lives in `src/components/helix/`. `HelixScroll.tsx` dynamically imports `HelixScene.tsx` with SSR disabled. GSAP pins the inner stage beneath the sticky navbar for four viewport heights and scrubs a single progress ref; React does not rerender per scroll frame. The Canvas requests frames only when progress changes while the section is visible, and pauses requests in hidden tabs. No continuous R3F loop or postprocessing is used.
+
+`particles.ts` precomputes seeded Float32Array start, splash, helix and glass targets. The particles burst in gravity-like arcs, assemble into two strands with rungs, rotate with a scroll-dependent breath, then merge into the rising liquid inside a LatheGeometry glass. Reverse scrolling follows the same deterministic positions. Three HTML copy beats remain accessible as ordinary text, and an always-available link skips to the flavors.
+
+Reduced motion, the site pause control, low-power hints, WebGL initialization errors and context loss select the unpinned manifest-backed helix poster with all three copy beats. CSS view-timeline parallax enhances that poster only where supported and motion is permitted; reduced motion is completely static. Pin setup/teardown preserves downstream content position. Disabling motion while inside the pin returns to the static section. No-JavaScript rendering also includes the poster and all copy.
+
+R3F owns every declarative geometry/material and its renderer, disposing them and releasing the WebGL context on Canvas unmount. Drei disposes its environment render target. Effect cleanup removes the context-loss/visibility listeners, render request callback and GSAP context, including the pin spacer. Browser tests exercise repeated pause/resume, reduced-motion changes, failed WebGL creation and a real lost context.
+
+The environment uses two procedural Lightformers in a one-frame, 64px drei Environment. Drei's named presets fetch external HDR files; procedural lighting respects the supplied-assets-only rule. Bloom is omitted to avoid an additional full-screen rendering pass.
+
+Tuning controls in `src/components/helix/config.ts`:
+
+| Control | Default |
+| --- | --- |
+| `instances.desktop` / `instances.mobile` | 1,200 / 400 |
+| `dpr.desktop` / `dpr.mobile` | 2 / 1.5 maximum |
+| `scrollScreens` / `scrubSeconds` | 4 viewport heights / 0.6 seconds |
+| `stages.splashEnd` / `assembleEnd` / `rotateEnd` | 0.25 / 0.60 / 0.85; settle ends at 1 |
+| `shape.radius` / `height` / `turns` | 1.05 / 4.8 / 2.15 scene units/turns |
+| `shape.rungs.desktop` / `shape.rungs.mobile` | 17 / 10 |
+| `sphereSegments.desktop` / `sphereSegments.mobile` | 10 / 8 |
+| `environmentResolution` | 64 |
+| `colors.background` / `juice` / `glow` / `rim` / `glass` | #10140f / #ff8a16 / #ee5807 / #ff6a16 / #f5fff4 |
+| `HELIX_COPY` | Three stage labels and sentences |
+
+Material roughness, clearcoat, light intensity, camera distance/orbit and glass profile are in `HelixScene.tsx`. Stage widths control how much scrolling each phase receives; they are not playback durations. The CSS pin height leaves room for the persistent navbar.
+
+To sample actual instanced WebGL frame submissions, start a production build on port 3100 and run `node scripts/measure-helix.mjs`. Set `HELIX_BENCH_URL` for another local test server, `HELIX_HEADED=1` for a visible browser, or `HELIX_SOFTWARE_RENDERING=1` to force SwiftShader. The script drives continuous scrolling for eight seconds at desktop and mobile viewports and writes `reports/helix-performance.json`. It overrides device capability hints to exercise both tiers; it does not bypass reduced motion in the application. Cloud/software results do not validate the 60fps laptop or 30fps phone hardware targets.
+
+Observed cloud sample (Chromium 154, ANGLE/SwiftShader software renderer):
+
+| Viewport | Instances | Effective DPR | Draw submissions / second | Sample duration |
+| --- | --- | --- | --- | --- |
+| 1440 × 960 | 1,200 | 1 | 1.06 | 8.53 s |
+| 375 × 812 | 400 | 1.50 (device DPR 3 capped) | 6.86 | 8.02 s |
+
+These software-rendered rates are below the requested targets. No physical mid-range laptop or phone GPU was available, so actual-device 60/30fps performance remains unverified. `reports/helix-performance.json` retains the renderer identity, timing method and raw sample summary. Re-run the script on target hardware before treating those targets as met.
