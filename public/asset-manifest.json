@@ -1,0 +1,82 @@
+[
+  {
+    "file": "images/helix.webp",
+    "bytes": 139570
+  },
+  {
+    "file": "images/splash-glass-blue.webp",
+    "bytes": 197436
+  },
+  {
+    "file": "images/splash-orange-slices.webp",
+    "bytes": 259662
+  },
+  {
+    "file": "images/splash-dark.webp",
+    "bytes": 254766
+  },
+  {
+    "file": "images/flavor-green.webp",
+    "bytes": 46200
+  },
+  {
+    "file": "images/flavor-lemonade.webp",
+    "bytes": 26312
+  },
+  {
+    "file": "images/flavor-berry.webp",
+    "bytes": 50834
+  },
+  {
+    "file": "images/flavor-watermelon.webp",
+    "bytes": 42790
+  },
+  {
+    "file": "images/flavor-orange.webp",
+    "bytes": 42308
+  },
+  {
+    "file": "images/gallery-1.webp",
+    "bytes": 70938
+  },
+  {
+    "file": "images/gallery-2.webp",
+    "bytes": 68834
+  },
+  {
+    "file": "images/gallery-3.webp",
+    "bytes": 122610
+  },
+  {
+    "file": "images/splash-glass.webp",
+    "bytes": 41994
+  },
+  {
+    "file": "video/hero-pour.mp4",
+    "bytes": 460136,
+    "allIntra": false
+  },
+  {
+    "file": "video/interlude-peel.mp4",
+    "bytes": 3184353,
+    "allIntra": false
+  },
+  {
+    "file": "video/splash-vertical.mp4",
+    "bytes": 3335220,
+    "allIntra": true
+  },
+  {
+    "file": "video/splash-drop.mp4",
+    "bytes": 3108894,
+    "allIntra": true
+  },
+  {
+    "file": "images/hero-poster.webp",
+    "bytes": 17434
+  },
+  {
+    "file": "images/interlude-poster.webp",
+    "bytes": 79386
+  }
+]
