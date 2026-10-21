@@ -1,6 +1,6 @@
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
-import { HelixScroll } from "@/components/HelixScroll";
+import { HelixScroll } from "@/components/helix/HelixScroll";
 import { FlavorGrid } from "@/components/FlavorGrid";
 import { Interlude } from "@/components/Interlude";
 import { OrderCTA } from "@/components/OrderCTA";
