@@ -4,9 +4,10 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { useMotion } from "./MotionProvider";
 import { useNearViewport } from "./useNearViewport";
+import type { VideoAsset } from "@/data/assets";
 
-export function MotionVideo({ src, poster, alt = "", sizes = "100vw", eager = false }: {
-  src: string; poster: string; alt?: string; sizes?: string; eager?: boolean;
+export function MotionVideo({ asset, alt = "", sizes = "100vw", eager = false }: {
+  asset: VideoAsset; alt?: string; sizes?: string; eager?: boolean;
 }) {
   const container = useRef<HTMLDivElement>(null);
   const video = useRef<HTMLVideoElement>(null);
@@ -33,7 +34,7 @@ export function MotionVideo({ src, poster, alt = "", sizes = "100vw", eager = fa
   }, [shouldPlay]);
 
   return <div ref={container} className="motion-video">
-    <Image src={poster} alt={alt} aria-hidden={alt ? undefined : true} fill sizes={sizes} preload={eager} className="media-cover" />
-    <video ref={video} src={shouldPlay ? src : undefined} poster={poster} muted loop playsInline preload={shouldPlay ? "auto" : "none"} aria-hidden="true" className="media-cover" />
+    <Image src={asset.poster} alt={alt} aria-hidden={alt ? undefined : true} fill sizes={sizes} preload={eager} placeholder="blur" blurDataURL={asset.blurDataURL} className="media-cover" />
+    <video ref={video} src={shouldPlay ? asset.path : undefined} poster={asset.poster} muted loop playsInline preload={shouldPlay ? "auto" : "none"} aria-hidden="true" className="media-cover" />
   </div>;
 }

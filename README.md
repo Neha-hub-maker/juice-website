@@ -50,17 +50,16 @@ README.md
 
 ## Assets
 
-Raw assets are in the repo root or `/assets-raw` with their original long names. **Rename and optimize them into `/public`** using the mapping below (match by the unique id fragment in the original file name; names may be slightly truncated).
+Raw originals are committed in `/assets`, including both splash videos moved from the repo root. Run `npm run assets:optimize` to audit and create renamed derivatives in `/public`; originals are never copied there. Import paths, dimensions, blur placeholders and video posters from `src/data/assets.ts`. See `ASSET_AUDIT.md` for the complete inventory, size comparison and findings.
 
 ### Images
 
 | Original file (id fragment) | New name | Mood | Use |
 |---|---|---|---|
 | `Gemini_Generated_Image_n1j0tcn1j0…` | `helix.webp` | Dark | Orange DNA-helix splash on black. Signature section, poster for helix video |
-| `Gemini_Generated_Image_1bi3f21…` | `splash-glass-blue.webp` | Dark teal | Hero or section background |
-| `Gemini_Generated_Image_9vihn49…` | `splash-orange-slices.webp` | Dark teal | Hero or section background |
+| `Gemini_Generated_Image_1bi3f21…` | `splash-teal.webp` | Dark teal | Hero or section background |
+| `Gemini_Generated_Image_9vihn49…` | `splash-slices.webp` | Dark teal | Hero or section background |
 | `Gemini_Generated_Image_x328w1…` | `splash-dark.webp` | Dark | Order/footer background |
-| `Orange_juice_splashing_from_glass_…4159` (image) | `splash-glass.webp` | Dark | Background / OG image |
 | `Gemini_Generated_Image_68t0ku…` | `flavor-green.webp` | Light pastel | Menu card: green juice |
 | `Gemini_Generated_Image_bgnuc5…` | `flavor-lemonade.webp` | Light pastel | Menu card: lemonade |
 | `Gemini_Generated_Image_necyyz…` | `flavor-berry.webp` | Light pastel | Menu card: berry |
@@ -80,6 +79,9 @@ The Pexels photos do not match the Gemini set stylistically. Keep them out of th
 | `262732_medium` | `interlude-peel.mp4` | Full-bleed interlude between menu and order |
 | `Orange_juice_splashing_from_glass_…4114` (vertical) | `splash-vertical.mp4` | Mobile hero / scroll section candidate |
 | `Orange_juice_splashing_from_glass_…4123` | `splash-drop.mp4` | Scroll-scrubbed section candidate |
+| `Orange_juice_splashing_from_glass_…4159.gif` | `splash-glass.mp4` | Low-resolution animated splash, converted from GIF |
+
+Every video has a `*-poster.webp` and a tiny blur placeholder. `splash-drop.mp4` is the regular playback version; use the separate `splash-drop-scrub.mp4` for scroll scrubbing (960px wide, every frame a keyframe). The GIF is 480 × 270 and is intentionally not upscaled. Image quality starts at 80; backgrounds are at most 1600px wide and cards at most 900px. All regular clips fit below 4 MB.
 
 Credit Pexels contributors if their license/attribution terms require it.
 

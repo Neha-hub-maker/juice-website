@@ -1,10 +1,11 @@
 import Image from "next/image";
 import { site } from "@/config/site";
 import { Arrow } from "./Arrow";
+import { assets } from "@/data/assets";
 
 export function OrderCTA() {
   return <section id="contact" className="order-section" aria-labelledby="order-title">
-    <div className="order-glow" aria-hidden="true"><Image src="/images/splash-dark.webp" alt="" fill sizes="(max-width: 700px) 100vw, 65vw" className="media-cover" /></div>
+    <div className="order-glow" aria-hidden="true"><Image src={assets.splashDark.path} alt="" fill sizes="(max-width: 700px) 100vw, 65vw" placeholder="blur" blurDataURL={assets.splashDark.blurDataURL} className="media-cover" /></div>
     <div className="wrap order-content"><p className="eyebrow">03 / Make it a ritual</p><h2 id="order-title">See you on<br /><em>the fresh side.</em></h2>
       <p>Your next favorite glass is waiting.</p>
       {site.contact.orderUrl ? <a className="button button-orange" href={site.contact.orderUrl}>Order now <Arrow diagonal /></a> : <p className="coming-soon">Ordering details coming soon</p>}

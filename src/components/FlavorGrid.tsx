@@ -14,7 +14,7 @@ export function FlavorGrid() {
         {flavors.map((flavor, index) => <li className="flavor-card" key={flavor.id}>
           <div className="flavor-image" style={{ backgroundColor: flavor.color }}>
             <span className="flavor-number" aria-hidden="true">0{index + 1}</span>
-            <Image src={flavor.image} alt={flavor.alt} fill sizes="(max-width: 640px) 80vw, (max-width: 1000px) 44vw, 29vw" className="media-cover" />
+            <Image src={flavor.image.path} alt={flavor.alt} fill sizes="(max-width: 640px) 80vw, (max-width: 1000px) 44vw, 29vw" placeholder="blur" blurDataURL={flavor.image.blurDataURL} className="media-cover" />
             <span className="flavor-tag">{flavor.flavor}</span>
           </div>
           <div className="flavor-caption"><h3>{flavor.name}</h3><p>{flavor.note}</p></div>

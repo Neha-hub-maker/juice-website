@@ -1,0 +1,427 @@
+{
+  "inventory": [
+    {
+      "file": ".keep",
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "type": "other",
+      "width": null,
+      "height": null,
+      "duration": null,
+      "flags": [
+        "Repository marker; not media."
+      ]
+    },
+    {
+      "file": "262732_medium.mp4",
+      "bytes": 15785721,
+      "sha256": "0b8a11c050ac94f34feb78a8839f2c31997f1722fc687d8fc74321677dea8afa",
+      "type": "mp4 (h264)",
+      "width": 2560,
+      "height": 1440,
+      "duration": 11.177833,
+      "flags": []
+    },
+    {
+      "file": "62083-502737742_medium.mp4",
+      "bytes": 1644151,
+      "sha256": "d76ea5bf632a9a14754dfad0609bd87f5d29be54764f48f8bf5f1c73594c9215",
+      "type": "mp4 (h264)",
+      "width": 1280,
+      "height": 720,
+      "duration": 11.946667,
+      "flags": []
+    },
+    {
+      "file": "Gemini_Generated_Image_1bi3f21bi3f21bi3.jpg",
+      "bytes": 2889678,
+      "sha256": "0fd8ee2db4fb8849d69fb201aab12d40037fd6e2b2abf7e280e4c19413343eb2",
+      "type": "jpeg",
+      "width": 2048,
+      "height": 2048,
+      "duration": null,
+      "flags": []
+    },
+    {
+      "file": "Gemini_Generated_Image_68t0ku68t0ku68t0.jpg",
+      "bytes": 2486785,
+      "sha256": "51a62879897e972a28a16a3a2f22f803bc2def6e8888b161925737f234532f60",
+      "type": "jpeg",
+      "width": 2048,
+      "height": 2048,
+      "duration": null,
+      "flags": []
+    },
+    {
+      "file": "Gemini_Generated_Image_9vihn49vihn49vih.jpg",
+      "bytes": 3358439,
+      "sha256": "7c3b5c8a22eadc8769b7fb5835846742e457958aff30381f9a1d36a3a8e12f33",
+      "type": "jpeg",
+      "width": 2048,
+      "height": 2048,
+      "duration": null,
+      "flags": []
+    },
+    {
+      "file": "Gemini_Generated_Image_bgnuc5bgnuc5bgnu.jpg",
+      "bytes": 2260338,
+      "sha256": "1de10e6ec4e7dab0b28fc903f2b6af94c6b013135385f4c7fe4222a3268a0840",
+      "type": "jpeg",
+      "width": 2752,
+      "height": 1536,
+      "duration": null,
+      "flags": [
+        "Landscape lemonade image; the other flavor images are square. Choose card crops deliberately."
+      ]
+    },
+    {
+      "file": "Gemini_Generated_Image_n1j0tcn1j0tcn1j0.jpg",
+      "bytes": 2455788,
+      "sha256": "a1c30efac3c98f9c9da46cfe412d730cbd902e6616776c7e2f28badaa6887223",
+      "type": "jpeg",
+      "width": 2048,
+      "height": 2048,
+      "duration": null,
+      "flags": []
+    },
+    {
+      "file": "Gemini_Generated_Image_necyyznecyyznecy.jpg",
+      "bytes": 2536210,
+      "sha256": "ab997214732717f2f2bff9afb99e53a1cef04faea2ca1d96f9a254fcbad05968",
+      "type": "jpeg",
+      "width": 2048,
+      "height": 2048,
+      "duration": null,
+      "flags": []
+    },
+    {
+      "file": "Gemini_Generated_Image_sc78ncsc78ncsc78.jpg",
+      "bytes": 2476383,
+      "sha256": "43cdeff3fd36983ca643f0145114ee584caa3b3b932937554a8f1aeeae9991d7",
+      "type": "jpeg",
+      "width": 2048,
+      "height": 2048,
+      "duration": null,
+      "flags": []
+    },
+    {
+      "file": "Gemini_Generated_Image_uokuyouokuyouoku.jpg",
+      "bytes": 2429407,
+      "sha256": "783b22e51f7d5e8713d079415fa6547f2168a66c6f19f8ee77b76e64961cc7dd",
+      "type": "jpeg",
+      "width": 2048,
+      "height": 2048,
+      "duration": null,
+      "flags": []
+    },
+    {
+      "file": "Gemini_Generated_Image_x328w1x328w1x328.jpg",
+      "bytes": 3206774,
+      "sha256": "0c8a050e909cb5df595716b1075c2ef20a404209e8de8d54949620d44450d96b",
+      "type": "jpeg",
+      "width": 2048,
+      "height": 2048,
+      "duration": null,
+      "flags": []
+    },
+    {
+      "file": "Orange_juice_splashing_from_glass_20261013024114.mp4",
+      "bytes": 4778176,
+      "sha256": "c7869cfd37f6b0b9dc59021b7696035c314ee42ea61cb81f043f161c513e6d28",
+      "type": "mp4 (h264)",
+      "width": 720,
+      "height": 1280,
+      "duration": 10.005,
+      "flags": []
+    },
+    {
+      "file": "Orange_juice_splashing_from_glass_20261013024123.mp4",
+      "bytes": 4494766,
+      "sha256": "5e44e9ba630130deb378b904a2ec5794fa4a02662f4b18b2e60d37069d14ab6d",
+      "type": "mp4 (h264)",
+      "width": 1280,
+      "height": 720,
+      "duration": 10.005,
+      "flags": []
+    },
+    {
+      "file": "Orange_juice_splashing_from_glass_20261013024159.gif",
+      "bytes": 10248403,
+      "sha256": "033ac1abec0f8e13ebc2249814d01dca0521e8c5037dc17807b36ba9b829e59c",
+      "type": "gif (animated)",
+      "width": 480,
+      "height": 270,
+      "duration": 10,
+      "flags": [
+        "Low resolution; keep native dimensions and do not upscale.",
+        "Animated GIF, not a still image as described in README; converted to MP4 and poster."
+      ]
+    },
+    {
+      "file": "pexels-roman-odintsov-4958852.jpg",
+      "bytes": 2201452,
+      "sha256": "c8f9c620e0d197952e60e38b29f57d2d5ff7baca7103c81d4ce79a70ffc1ec8d",
+      "type": "jpeg",
+      "width": 4000,
+      "height": 6000,
+      "duration": null,
+      "flags": []
+    },
+    {
+      "file": "pexels-timur-weber-8679377.jpg",
+      "bytes": 1843269,
+      "sha256": "41d4d1248b1ae81844412651a5e990d1395dc89a3f5ed7cdf4b7fb88baa257c2",
+      "type": "jpeg",
+      "width": 3212,
+      "height": 4871,
+      "duration": null,
+      "flags": []
+    },
+    {
+      "file": "pexels-umarali07-28053288.jpg",
+      "bytes": 1479356,
+      "sha256": "25195a352523c89299deefbb14276ac11fac8bb619a22c06524c53f405b77d18",
+      "type": "jpeg",
+      "width": 3320,
+      "height": 4980,
+      "duration": null,
+      "flags": []
+    }
+  ],
+  "assets": {
+    "helix": {
+      "kind": "image",
+      "path": "/images/helix.webp",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 142238,
+      "blurDataURL": "data:image/webp;base64,UklGRogAAABXRUJQVlA4IHwAAACQBACdASoUABQAPwFmrk6rJSSiMBgMAWAgCWYAuxtfwCCWzl+LrGD0QkHRYAAA/vDcdf4kqoNOfJxR6JUZynHZeq/vxOVBVIytDEctZMtrSIWIn7G2xHyMutaj+P+M/+tv1muVqnR21IfL0Y8O0h4FgPWsvoXl21RayiAA",
+      "blurPath": "/images/placeholders/helix.webp",
+      "quality": 80,
+      "poster": null,
+      "source": "Gemini_Generated_Image_n1j0tcn1j0tcn1j0.jpg"
+    },
+    "splashTeal": {
+      "kind": "image",
+      "path": "/images/splash-teal.webp",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 179766,
+      "blurDataURL": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAADQBACdASoUABQAPwFmrU8rJSQiMBgMAWAgCWwAsR9kAYBjESVsDL/j3/OJQxooQAD+6PDyKGEvNoJRZsQvwCu1j33YqYkY95ZsHhS/Zlz5W6r0WwcKvHDSLaYiFjGz7i9F4zSBIhAAAA==",
+      "blurPath": "/images/placeholders/splash-teal.webp",
+      "quality": 80,
+      "poster": null,
+      "source": "Gemini_Generated_Image_1bi3f21bi3f21bi3.jpg"
+    },
+    "splashSlices": {
+      "kind": "image",
+      "path": "/images/splash-slices.webp",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 213450,
+      "blurDataURL": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAACwBACdASoUABQAPv1grE6rJSQiN/VYAWAfiWwAnTNHQpgUzzDXmG4s8J5N6wwAAP7jFNNF7J/JtBMTOI/334B68bFYMsnNjEQdi2W8+n31sThaPRtRy+SRzh2Vki8Z2CUgaaHvrluC/bnsb8aSOX2ZpUFAAA==",
+      "blurPath": "/images/placeholders/splash-slices.webp",
+      "quality": 80,
+      "poster": null,
+      "source": "Gemini_Generated_Image_9vihn49vihn49vih.jpg"
+    },
+    "splashDark": {
+      "kind": "image",
+      "path": "/images/splash-dark.webp",
+      "width": 1600,
+      "height": 1600,
+      "bytes": 220830,
+      "blurDataURL": "data:image/webp;base64,UklGRowAAABXRUJQVlA4IIAAAABwBQCdASoUABQAPv1iq06rJSOiN/VYAWAfiWwAnTKEdQDPwRhU941hFjD+sBpO9YqKB2IAAP7w32L83txi0/Vt4BpIaBkBL2sVgJlu5iun4KIS91rVPi0ZwbFSdkh0uAzuWg+BYzhlXBYnFbbcBs2o7ooDC4BwwJkh/UvzfXQAAA==",
+      "blurPath": "/images/placeholders/splash-dark.webp",
+      "quality": 80,
+      "poster": null,
+      "source": "Gemini_Generated_Image_x328w1x328w1x328.jpg"
+    },
+    "flavorGreen": {
+      "kind": "image",
+      "path": "/images/flavor-green.webp",
+      "width": 900,
+      "height": 900,
+      "bytes": 50480,
+      "blurDataURL": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAACwBACdASoUABQAPwFur1CrJiQiqA1RYCAJQA7gAEXxZnjfqxoXiKuIkCrCX+9gAP6ulBWqPfvXZhgEGKc7c4qNOBFtqxqVvRGcdO5YfJtOcF0qIMGcgqupNX80/pTQrgEIAA==",
+      "blurPath": "/images/placeholders/flavor-green.webp",
+      "quality": 80,
+      "poster": null,
+      "source": "Gemini_Generated_Image_68t0ku68t0ku68t0.jpg"
+    },
+    "flavorLemonade": {
+      "kind": "image",
+      "path": "/images/flavor-lemonade.webp",
+      "width": 900,
+      "height": 502,
+      "bytes": 19480,
+      "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAACQAwCdASoUAAsAPwFqrE6rJiQiMAgBYCAJZACw7CG+oSwnIBF4AP7esqYSBBX+MXM+MYsN3bTpITJl65r0HR4wAAA=",
+      "blurPath": "/images/placeholders/flavor-lemonade.webp",
+      "quality": 80,
+      "poster": null,
+      "source": "Gemini_Generated_Image_bgnuc5bgnuc5bgnu.jpg"
+    },
+    "flavorBerry": {
+      "kind": "image",
+      "path": "/images/flavor-berry.webp",
+      "width": 900,
+      "height": 900,
+      "bytes": 55272,
+      "blurDataURL": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAAAQBQCdASoUABQAPvlor06qpiSiMBgMAVAfCUAXYAIeAF/7SUu6KBIP0uDlPJIeG1EAAP6umD5b/ESNaej6qMHsmmj7SGxIIl0Ee0jBbgdHBoq0XKvlHZBaWCIn5uxRr4PIBCZNtq4AAA==",
+      "blurPath": "/images/placeholders/flavor-berry.webp",
+      "quality": 80,
+      "poster": null,
+      "source": "Gemini_Generated_Image_necyyznecyyznecy.jpg"
+    },
+    "flavorWatermelon": {
+      "kind": "image",
+      "path": "/images/flavor-watermelon.webp",
+      "width": 900,
+      "height": 900,
+      "bytes": 46774,
+      "blurDataURL": "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAABwBQCdASoUABQAPvlqrk6qpiSiMBgMAVAfCWwAsRvCpsAONraTgSJoqbc0pt0p0K3gwaDAAP7DMG+w5eqxm2qC+ICYdE1YKC27ig7CusTaLX1QXz9P+7jrFiMGzJ6bvlMDvcDFKgO74oXafhVtgAAA",
+      "blurPath": "/images/placeholders/flavor-watermelon.webp",
+      "quality": 80,
+      "poster": null,
+      "source": "Gemini_Generated_Image_sc78ncsc78ncsc78.jpg"
+    },
+    "flavorOrange": {
+      "kind": "image",
+      "path": "/images/flavor-orange.webp",
+      "width": 900,
+      "height": 900,
+      "bytes": 44848,
+      "blurDataURL": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAACwBQCdASoUABQAPvlop06qpiMiMAwBUB8JbACdMoR1AIK3/AqR8IP76f8BQAWR0md4SOUyJcAA/ucXKy8P+GgUH2G2N6IJSTtnbUxfsyMQI5UtXJ3S4SrEyp5wZv0dj75EDBqpwrKYbnMiFoAAAA==",
+      "blurPath": "/images/placeholders/flavor-orange.webp",
+      "quality": 80,
+      "poster": null,
+      "source": "Gemini_Generated_Image_uokuyouokuyouoku.jpg"
+    },
+    "gallery1": {
+      "kind": "image",
+      "path": "/images/gallery-1.webp",
+      "width": 900,
+      "height": 1350,
+      "bytes": 56584,
+      "blurDataURL": "data:image/webp;base64,UklGRsQAAABXRUJQVlA4ILgAAADwBQCdASoUAB4APvFkrE6ppaSiMAwBMB4JbACdMoR/gKp5/gE6TOUhovu8A0Sy9jE+6bzSlzPSQADN4tpI1ch0i7g+0ZwpC3+lNupxLlAS7hvRGeJT7b5B2+WjzngmeUCPdvaoDAsyKGnjY8rUjhat1WTIjoB34S8gPtaSlRIvQNn8qg8b8wW1rqJLeS17AfcnFnxvfMmyh5q9yATtAunMbsbQm1ACO0LGyhkmRrdU7i+FPmFI4AAA",
+      "blurPath": "/images/placeholders/gallery-1.webp",
+      "quality": 80,
+      "poster": null,
+      "source": "pexels-roman-odintsov-4958852.jpg"
+    },
+    "gallery2": {
+      "kind": "image",
+      "path": "/images/gallery-2.webp",
+      "width": 900,
+      "height": 1365,
+      "bytes": 52606,
+      "blurDataURL": "data:image/webp;base64,UklGRogAAABXRUJQVlA4IHwAAABQBQCdASoUAB4APvlkqk6qpaQiN/VYAVAfCWYAsOwyQeMLQTT94nIRBHW4kDoxROUEfogAws1TPRbRSaBKCMP5T3uWvNBo1vjYv/KbE6tc6lF/9tQlv+LLzxO7ojMrhtyqYnLHF1HuEwoUJ64R753CPcN/kPS1phS49gAA",
+      "blurPath": "/images/placeholders/gallery-2.webp",
+      "quality": 80,
+      "poster": null,
+      "source": "pexels-timur-weber-8679377.jpg"
+    },
+    "gallery3": {
+      "kind": "image",
+      "path": "/images/gallery-3.webp",
+      "width": 900,
+      "height": 1350,
+      "bytes": 93240,
+      "blurDataURL": "data:image/webp;base64,UklGRpYAAABXRUJQVlA4IIoAAAAwBQCdASoUAB4APvVoqU6qpiOiN/VYAVAeiWgAv2d3OABPrpXI1hHbZhuTjtyGCz2+oAD+z310bHmOFcXPc7hmdMTUQ5vrB1XqjIA8P9A0eLajC/RfaGNYcTS84t9wFaJvlpT8+B3mLD573BnoViLYoADvYaCOzZY+KGabs6rkH4+C0C3jt6hkAAA=",
+      "blurPath": "/images/placeholders/gallery-3.webp",
+      "quality": 80,
+      "poster": null,
+      "source": "pexels-umarali07-28053288.jpg"
+    },
+    "heroPour": {
+      "kind": "video",
+      "path": "/video/hero-pour.mp4",
+      "width": 1280,
+      "height": 720,
+      "bytes": 460235,
+      "duration": 11.928583,
+      "allIntra": false,
+      "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAACwAwCdASoUAAsAPwFqrU8rJiQiMAgBYCAJZACdMoABArTFGF2wgAD+gGobbnv7t6MV+WqcF0aEYDj6EAZ98we4IowEcms2vnkdyAAA",
+      "blurPath": "/images/placeholders/hero-pour-poster.webp",
+      "poster": "/images/hero-pour-poster.webp",
+      "posterBytes": 18228,
+      "crf": 26,
+      "source": "62083-502737742_medium.mp4"
+    },
+    "interludePeel": {
+      "kind": "video",
+      "path": "/video/interlude-peel.mp4",
+      "width": 1280,
+      "height": 720,
+      "bytes": 3183636,
+      "duration": 11.177833,
+      "allIntra": false,
+      "blurDataURL": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAABwBACdASoUAAsAPwFsrU6rJiQiMAgBYCAJbACdMoR3AH5XQN9K4dhpLzyMAAD++RgqogykE65xu+pDoTQa1Nda+S3kVLeUJfoZdIb3bww5cOusu8fn+nDGp2z+CQrppSt6TxJkU36PrzAU3KBaO3t1gAA=",
+      "blurPath": "/images/placeholders/interlude-peel-poster.webp",
+      "poster": "/images/interlude-peel-poster.webp",
+      "posterBytes": 77728,
+      "crf": 26,
+      "source": "262732_medium.mp4"
+    },
+    "splashVertical": {
+      "kind": "video",
+      "path": "/video/splash-vertical.mp4",
+      "width": 720,
+      "height": 1280,
+      "bytes": 1725266,
+      "duration": 10,
+      "allIntra": false,
+      "blurDataURL": "data:image/webp;base64,UklGRrYAAABXRUJQVlA4IKoAAAAQBgCdASoUACQAPwFysVGrJqSipWzJYCAJbACpJ3JA0aR7CipR0JyDjzDYTNmjCWyBJCk7re1oyAAA/vDfzB5G4XwZedNaN49RPUQF9K8gOzxoxG/RZC5o/qzikLgRo8w1zsuXfIUUL/nKEw5PmuXIq51f4lZ+WKfuKoQJaBkpMOG80t8RXB2DLIjc6ldZ7CvLvLQmtVZEzEhlQrUh2HHBccA1jgKYpgAAAA==",
+      "blurPath": "/images/placeholders/splash-vertical-poster.webp",
+      "poster": "/images/splash-vertical-poster.webp",
+      "posterBytes": 30440,
+      "crf": 26,
+      "source": "Orange_juice_splashing_from_glass_20261013024114.mp4"
+    },
+    "splashDrop": {
+      "kind": "video",
+      "path": "/video/splash-drop.mp4",
+      "width": 1280,
+      "height": 720,
+      "bytes": 1616229,
+      "duration": 10,
+      "allIntra": false,
+      "blurDataURL": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAADQAwCdASoUAAsAPwFqrk8rJiQiMAgBYCAJbACdABBnShvtxuR+DQAA/uwKyn5MTwUDcYDQHCGT9iSlTGEn5NzBgano8A95at49AOVIEgmwQR0zMAA=",
+      "blurPath": "/images/placeholders/splash-drop-poster.webp",
+      "poster": "/images/splash-drop-poster.webp",
+      "posterBytes": 31798,
+      "crf": 26,
+      "source": "Orange_juice_splashing_from_glass_20261013024123.mp4"
+    },
+    "splashGlass": {
+      "kind": "video",
+      "path": "/video/splash-glass.mp4",
+      "width": 480,
+      "height": 270,
+      "bytes": 2033023,
+      "duration": 10,
+      "allIntra": false,
+      "blurDataURL": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAACwAwCdASoUAAsAPwFqrk8rJiQiMAgBYCAJbACdABA94XILGIRnQAD+7AqMPG+b0oA6qML3lDrtFgMx7GvLgKn6PVaP3NNb15RrQaq4xyGLd8AA",
+      "blurPath": "/images/placeholders/splash-glass-poster.webp",
+      "poster": "/images/splash-glass-poster.webp",
+      "posterBytes": 35894,
+      "crf": 26,
+      "source": "Orange_juice_splashing_from_glass_20261013024159.gif"
+    },
+    "splashDropScrub": {
+      "kind": "video",
+      "path": "/video/splash-drop-scrub.mp4",
+      "width": 960,
+      "height": 540,
+      "bytes": 3108893,
+      "duration": 10,
+      "allIntra": true,
+      "blurDataURL": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAADQAwCdASoUAAsAPwFqrk8rJiQiMAgBYCAJbACdABBnShvtxuR+DQAA/uwKyn5MTwUDcYDQHCGT9iSlTGEn5NzBgYEx4B7y1bx6AcqQJBNggWH2gAA=",
+      "blurPath": "/images/placeholders/splash-drop-scrub-poster.webp",
+      "poster": "/images/splash-drop-scrub-poster.webp",
+      "posterBytes": 21136,
+      "crf": 25,
+      "source": "Orange_juice_splashing_from_glass_20261013024123.mp4"
+    }
+  }
+}

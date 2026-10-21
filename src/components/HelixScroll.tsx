@@ -7,6 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useMediaQuery, useMotion } from "./MotionProvider";
 import { useNearViewport } from "./useNearViewport";
+import { assets } from "@/data/assets";
 
 const HelixScene = dynamic(() => import("./HelixScene"), { ssr: false });
 gsap.registerPlugin(ScrollTrigger);
@@ -53,10 +54,10 @@ export function HelixScroll() {
       </div>
       <div className="helix-art">
         <div className="helix-artwork">
-          <Image src="/images/helix.webp" alt="Orange juice splash twisting into a DNA double helix on black" fill sizes="(max-width: 700px) 100vw, 55vw" className="media-contain" />
+          <Image src={assets.helix.path} alt="Orange juice splash twisting into a DNA double helix on black" fill sizes="(max-width: 700px) 100vw, 55vw" placeholder="blur" blurDataURL={assets.helix.blurDataURL} className="media-contain" />
           {enhanced && near && <HelixScene progress={progress} />}
         </div>
-        <video ref={video} src={enhanced && near ? "/video/splash-drop.mp4" : undefined} className="helix-splash" poster="/images/splash-glass.webp" muted playsInline preload={enhanced && near ? "auto" : "none"} aria-hidden="true" />
+        <video ref={video} src={enhanced && near ? assets.splashDropScrub.path : undefined} className="helix-splash" poster={assets.splashDropScrub.poster} muted playsInline preload={enhanced && near ? "auto" : "none"} aria-hidden="true" />
       </div>
       <p className="helix-footnote">Rooted in nature.<br /><span>Made for your everyday.</span></p>
     </div>

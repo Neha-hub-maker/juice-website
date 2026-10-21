@@ -4,6 +4,7 @@ import { Component, useEffect, useLayoutEffect, useRef, useState, type RefObject
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { PerspectiveCamera } from "@react-three/drei";
 import { Mesh, PlaneGeometry, SRGBColorSpace, Texture, TextureLoader } from "three";
+import { assets } from "@/data/assets";
 
 type Progress = RefObject<{ value: number }>;
 
@@ -49,7 +50,7 @@ function LoadedScene({ progress }: { progress: Progress }) {
   useEffect(() => {
     if (lost) return;
     let active = true;
-    const resource = new TextureLoader().load("/images/helix.webp", (loaded) => {
+    const resource = new TextureLoader().load(assets.helix.path, (loaded) => {
       if (!active) { loaded.dispose(); return; }
       loaded.colorSpace = SRGBColorSpace;
       setTexture(loaded);

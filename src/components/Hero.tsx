@@ -2,6 +2,7 @@ import { MotionVideo } from "./MotionVideo";
 import { site } from "@/config/site";
 import { Arrow } from "./Arrow";
 import { BrandMark } from "./BrandMark";
+import { assets } from "@/data/assets";
 
 export function Hero() {
   return <section className="hero wrap" aria-labelledby="hero-title">
@@ -13,7 +14,7 @@ export function Hero() {
     </div>
     <div className="hero-visual">
       <div className="hero-frame">
-        <MotionVideo src="/video/hero-pour.mp4" poster="/images/hero-poster.webp" alt="Golden orange juice being poured into a glass" sizes="(max-width: 700px) 90vw, 46vw" eager />
+        <MotionVideo asset={assets.heroPour} alt="Golden orange juice being poured into a glass" sizes="(max-width: 700px) 90vw, 46vw" eager />
         <span className="hero-frame-shade" aria-hidden="true" />
         <p className="visual-caption">A brighter kind<br /><em>of everyday.</em></p>
       </div>
