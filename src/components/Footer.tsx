@@ -1,5 +1,13 @@
+import { site } from "@/config/site";
+import { SplashBackdrop } from "./SplashBackdrop";
+import { SocialLinks } from "./SocialLinks";
+
 export function Footer() {
-  return <footer id="footer" className="section-placeholder section-dark" aria-labelledby="footer-heading">
-    <div className="container-page"><h2 id="footer-heading" className="font-display text-display">Footer</h2></div>
+  return <footer id="footer" className="site-footer section-dark">
+    <SplashBackdrop />
+    <div className="container-page footer-content">
+      <div className="footer-top"><a className="logo" href="#home">{site.name}<span aria-hidden="true">.</span></a><SocialLinks /></div>
+      <div className="footer-bottom"><p>© {new Date().getFullYear()} {site.name}. All rights reserved.</p><a href="#home">Back to top <span aria-hidden="true">↑</span></a></div>
+    </div>
   </footer>;
 }
