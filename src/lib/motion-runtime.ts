@@ -1,7 +1,7 @@
 type Cleanup = () => void;
 
 /** Let the server-rendered hero paint before downloading animation code. */
-export function afterPaint(setup: (cancelled: () => boolean) => Promise<Cleanup | void>): Cleanup {
+export function afterPaint(setup: (cancelled: () => boolean) => Promise<Cleanup | void>, onError?: () => void): Cleanup {
   let cancelled = false;
   let cleanup: Cleanup | void;
   let secondFrame = 0;
@@ -11,7 +11,7 @@ export function afterPaint(setup: (cancelled: () => boolean) => Promise<Cleanup 
     void setup(() => cancelled).then(result => {
       if (cancelled) result?.();
       else cleanup = result;
-    }).catch(() => { /* A failed enhancement download leaves the static page usable. */ });
+    }).catch(() => { if (!cancelled) onError?.(); });
   };
   const firstFrame = requestAnimationFrame(() => {
     secondFrame = requestAnimationFrame(() => {

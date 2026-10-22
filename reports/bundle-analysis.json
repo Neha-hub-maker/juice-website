@@ -1,0 +1,164 @@
+{
+  "measuredAt": "2026-10-22T06:08:50.055Z",
+  "browser": "154.0.8037.57",
+  "method": "Production chunk sizes; gzip/brotli estimates at default Node compression levels. Observe mobile requests before/after entering helix; high-capability hints force the 3D tier. These are compressed-size estimates, not network transfer timings.",
+  "entry": {
+    "rawBytes": 488634,
+    "gzipBytes": 147299,
+    "brotliBytes": 126138,
+    "chunks": [
+      "/_next/static/chunks/01ce6pg25fldo.js",
+      "/_next/static/chunks/0_g7r6mm34dhv.js",
+      "/_next/static/chunks/1g28e174r-lid.js",
+      "/_next/static/chunks/2gvu8dyrhibpa.js",
+      "/_next/static/chunks/3hvqhhfg45wiw.js",
+      "/_next/static/chunks/3z7futvmbd_f3.js",
+      "/_next/static/chunks/turbopack-3-ry682tkyiqk.js"
+    ]
+  },
+  "heroAfterDeferredMotion": {
+    "rawBytes": 602166,
+    "gzipBytes": 191906,
+    "brotliBytes": 166581,
+    "chunks": [
+      "/_next/static/chunks/01ce6pg25fldo.js",
+      "/_next/static/chunks/0_g7r6mm34dhv.js",
+      "/_next/static/chunks/1g28e174r-lid.js",
+      "/_next/static/chunks/221t8prlw_tu1.js",
+      "/_next/static/chunks/2gvu8dyrhibpa.js",
+      "/_next/static/chunks/2p2jd75im6m_h.js",
+      "/_next/static/chunks/3hvqhhfg45wiw.js",
+      "/_next/static/chunks/3z7futvmbd_f3.js",
+      "/_next/static/chunks/turbopack-3-ry682tkyiqk.js"
+    ]
+  },
+  "helixAdditional": {
+    "rawBytes": 994301,
+    "gzipBytes": 269631,
+    "brotliBytes": 220808,
+    "chunks": [
+      "/_next/static/chunks/2depbr_a3md5a.js"
+    ]
+  },
+  "threeAbsentFromHero": true,
+  "threeLoadedAtHelix": true,
+  "chunks": [
+    {
+      "path": "/_next/static/chunks/01ce6pg25fldo.js",
+      "rawBytes": 22597,
+      "gzipBytes": 7551,
+      "brotliBytes": 6644,
+      "contains3D": false,
+      "containsScrollTrigger": false,
+      "containsLenis": false
+    },
+    {
+      "path": "/_next/static/chunks/0_g7r6mm34dhv.js",
+      "rawBytes": 17721,
+      "gzipBytes": 5106,
+      "brotliBytes": 4534,
+      "contains3D": false,
+      "containsScrollTrigger": true,
+      "containsLenis": false
+    },
+    {
+      "path": "/_next/static/chunks/0cz1d0mv5g_q7.js",
+      "rawBytes": 112594,
+      "gzipBytes": 39627,
+      "brotliBytes": 35158,
+      "contains3D": false,
+      "containsScrollTrigger": false,
+      "containsLenis": false
+    },
+    {
+      "path": "/_next/static/chunks/0umf92h1sb77c.js",
+      "rawBytes": 13822,
+      "gzipBytes": 3514,
+      "brotliBytes": 3141,
+      "contains3D": false,
+      "containsScrollTrigger": false,
+      "containsLenis": false
+    },
+    {
+      "path": "/_next/static/chunks/1g28e174r-lid.js",
+      "rawBytes": 179944,
+      "gzipBytes": 48295,
+      "brotliBytes": 40637,
+      "contains3D": false,
+      "containsScrollTrigger": false,
+      "containsLenis": false
+    },
+    {
+      "path": "/_next/static/chunks/221t8prlw_tu1.js",
+      "rawBytes": 70159,
+      "gzipBytes": 27119,
+      "brotliBytes": 24523,
+      "contains3D": false,
+      "containsScrollTrigger": true,
+      "containsLenis": false
+    },
+    {
+      "path": "/_next/static/chunks/2depbr_a3md5a.js",
+      "rawBytes": 994301,
+      "gzipBytes": 269631,
+      "brotliBytes": 220808,
+      "contains3D": true,
+      "containsScrollTrigger": false,
+      "containsLenis": false
+    },
+    {
+      "path": "/_next/static/chunks/2gvu8dyrhibpa.js",
+      "rawBytes": 229597,
+      "gzipBytes": 71899,
+      "brotliBytes": 61468,
+      "contains3D": false,
+      "containsScrollTrigger": false,
+      "containsLenis": false
+    },
+    {
+      "path": "/_next/static/chunks/2j1qdg6u05qhu.js",
+      "rawBytes": 18782,
+      "gzipBytes": 5447,
+      "brotliBytes": 4888,
+      "contains3D": false,
+      "containsScrollTrigger": false,
+      "containsLenis": true
+    },
+    {
+      "path": "/_next/static/chunks/2p2jd75im6m_h.js",
+      "rawBytes": 43373,
+      "gzipBytes": 17488,
+      "brotliBytes": 15920,
+      "contains3D": false,
+      "containsScrollTrigger": true,
+      "containsLenis": false
+    },
+    {
+      "path": "/_next/static/chunks/3hvqhhfg45wiw.js",
+      "rawBytes": 27836,
+      "gzipBytes": 9894,
+      "brotliBytes": 8815,
+      "contains3D": false,
+      "containsScrollTrigger": true,
+      "containsLenis": false
+    },
+    {
+      "path": "/_next/static/chunks/3z7futvmbd_f3.js",
+      "rawBytes": 909,
+      "gzipBytes": 614,
+      "brotliBytes": 528,
+      "contains3D": false,
+      "containsScrollTrigger": false,
+      "containsLenis": false
+    },
+    {
+      "path": "/_next/static/chunks/turbopack-3-ry682tkyiqk.js",
+      "rawBytes": 10030,
+      "gzipBytes": 3940,
+      "brotliBytes": 3512,
+      "contains3D": false,
+      "containsScrollTrigger": false,
+      "containsLenis": false
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # Development
 
-Requires Node.js 22 or newer (validated with Node 24), npm, and ffmpeg when regenerating media.
+Requires Node.js 22.19 or newer (validated with Node 24), npm, and ffmpeg when regenerating media.
 
 ```sh
 npm ci
@@ -71,3 +71,12 @@ Observed cloud sample (Chromium 154, ANGLE/SwiftShader software renderer):
 | 375 × 812 | 400 | 1.50 (device DPR 3 capped) | 6.86 | 8.02 s |
 
 These software-rendered rates are below the requested targets. No physical mid-range laptop or phone GPU was available, so actual-device 60/30fps performance remains unverified. `reports/helix-performance.json` retains the renderer identity, timing method and raw sample summary. Re-run the script on target hardware before treating those targets as met.
+
+Site polish and audits:
+
+- Motion libraries use async imports from `src/lib/motion-runtime.ts`. Two animation frames and an idle callback let the server-rendered hero paint before setup. Hero text remains opaque during its staggered movement so the entrance does not postpone its first readable paint. Lenis is requested only for capable desktop devices. The R3F chunk is imported only after the helix enters the viewport; the manifest poster remains its loading fallback.
+- The shared, reference-counted layout watcher batches font completion and image/video load events before a safe ScrollTrigger refresh. Its listeners and timers disappear when the final motion consumer unmounts. ScrollTrigger also retains its normal resize refresh handling.
+- `src/app/layout.tsx` supplies title, description, Open Graph/Twitter image metadata and a near-black theme color. Set `NEXT_PUBLIC_SITE_URL` to the production HTTPS origin before rebuilding for launch. Until then, Next.js warns and resolves social images against localhost; the repository does not invent a shop domain.
+- `src/app/favicon.ico` is a 64px RGBA crop of the supplied splash-teal derivative, encoded as a PNG-backed ICO. `npm run assets:optimize` now also runs `scripts/generate-site-icon.mjs`; the existing optimized WebP/MP4 derivatives are otherwise unchanged.
+- After `npm run build`, start a production server with `npm run start -- --port 3200`. Run `npm run audit:mobile` for Lighthouse's default mobile simulation and `npm run bundle:analyze` for entry/deferred chunk sizes and an actual request-boundary check. `AUDIT_URL`, `CHROME_PATH`, `AUDIT_CHROME_FLAGS` and `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` allow another local server/browser. Audits write JSON to `reports/`; `reports/SITE_VERIFICATION.md` explains results and limits.
+- Browser checks now include delayed media loading, static/reduced-motion usability and document overflow at 375/768/1440, metadata/favicon responses, and 768px pin continuity through font/media refresh. The pin's deliberate scroll distance must not be confused with an empty gap after teardown.

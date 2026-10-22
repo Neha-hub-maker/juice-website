@@ -2,7 +2,7 @@
 
 A dynamic, visually-driven website for a juice shop. The signature feature is a scroll-driven animation in which an orange juice splash forms a DNA double-helix shape, then settles into a glass. The rest of the site uses a dark, dramatic mood for the hero/transition sections and a light pastel mood for the menu.
 
-> Shop name: `TODO` — replace everywhere marked `{{SHOP_NAME}}`.
+> The placeholder shop name is `SITE_NAME` in `src/config/site.ts`. Change it once there; the logo, footer and metadata use that configuration.
 
 ## Goals
 
@@ -15,37 +15,36 @@ A dynamic, visually-driven website for a juice shop. The signature feature is a 
 
 - **Next.js** (App Router) + **React** + **TypeScript**
 - **Tailwind CSS** for styling
-- **GSAP + ScrollTrigger** for scroll animation (optional: **Lenis** for smooth scrolling)
+- **GSAP + ScrollTrigger** for scroll animation; **Lenis** for capable desktop devices
+- **Three.js**, **@react-three/fiber** and **@react-three/drei** for the real 3D helix
 - `next/image` for images; native `<video>` for video
 
 ## Getting Started
 
+Requires Node.js 22.19 or newer (Node 24 is validated).
+
 ```bash
-npm install
+npm ci
 npm run dev      # http://localhost:3000
 npm run build
 npm run start
 ```
 
-## Project Structure (target)
+## Project Structure
 
-```
-/app
-  layout.tsx
-  page.tsx
-/components
-  Hero.tsx
-  HelixScroll.tsx      # scroll-scrubbed signature section
-  FlavorGrid.tsx
-  Interlude.tsx
-  OrderCTA.tsx
-  Footer.tsx
-/data
-  flavors.ts           # menu items (name, tagline, price, image)
-/public
-  /images              # optimized WebP images (renamed, see below)
-  /video               # optimized mp4 videos (renamed, see below)
-README.md
+```text
+src/app/                 # App Router, metadata, fonts, favicon, global design tokens
+src/config/site.ts       # shop name, tagline, public URL, order/contact/social details
+src/data/flavors.ts      # five menu entries, images, prices
+src/data/assets.ts       # generated typed media manifest
+src/components/          # Hero, FlavorGrid, Interlude, OrderCTA, Footer, shared motion
+src/components/helix/    # pinned wrapper, lazy R3F scene, particle targets, tuning
+src/lib/motion-runtime.ts # deferred imports and font/media layout refreshes
+assets/                  # committed source media, never served directly
+public/images/           # optimized images, posters and blur placeholders
+public/video/            # optimized silent MP4s
+scripts/                 # asset optimization, favicon, Lighthouse and bundle audits
+reports/                 # inventories and reproducible audit results
 ```
 
 ## Assets
@@ -56,7 +55,7 @@ Raw originals are committed in `/assets`, including both splash videos moved fro
 
 | Original file (id fragment) | New name | Mood | Use |
 |---|---|---|---|
-| `Gemini_Generated_Image_n1j0tcn1j0…` | `helix.webp` | Dark | Orange DNA-helix splash on black. Signature section, poster for helix video |
+| `Gemini_Generated_Image_n1j0tcn1j0…` | `helix.webp` | Dark | Orange DNA-helix splash on black. Static fallback for the signature 3D section |
 | `Gemini_Generated_Image_1bi3f21…` | `splash-teal.webp` | Dark teal | Hero or section background |
 | `Gemini_Generated_Image_9vihn49…` | `splash-slices.webp` | Dark teal | Hero or section background |
 | `Gemini_Generated_Image_x328w1…` | `splash-dark.webp` | Dark | Order/footer background |
@@ -88,8 +87,8 @@ Credit Pexels contributors if their license/attribution terms require it.
 ## Page Sections
 
 1. **Hero** — `hero-pour.mp4` looping, muted, with a large headline, short tagline, and a primary "Order now" button. Dark overlay for text contrast.
-2. **Helix scroll section** — pinned section. As the user scrolls, the splash/helix animation plays (scrubbed to scroll progress), then resolves into a glass with a short line of copy. Falls back to the static `helix.webp` with a subtle parallax/rotate if video scrubbing is unavailable (reduced motion, low-power devices).
-3. **Flavors** — grid of 5 cards from `/data/flavors.ts` using the light pastel images. Hover tilt/lift on desktop; swipeable on mobile.
+2. **Helix scroll section** — a real, dynamically loaded R3F scene, pinned for four viewport heights. Instanced droplets splash, assemble into a rotating double helix, then settle into a LatheGeometry glass. One scroll-progress ref drives the scene and three HTML copy beats. Reduced motion, low-power hints and WebGL failures select an unpinned `helix.webp` fallback; reduced motion is fully static.
+3. **Flavors** — grid of 5 cards from `src/data/flavors.ts` using the light pastel images. Hover tilt/lift on desktop; swipeable on mobile.
 4. **Interlude** — full-bleed `interlude-peel.mp4` with one line of text.
 5. **Order / Footer** — dark splash background, contact/order info, social links.
 
@@ -97,7 +96,9 @@ Transition design: dark sections (hero, helix, order) bookend a light section (f
 
 ## Scroll Animation Requirements
 
-- Use GSAP ScrollTrigger with `pin: true` and `scrub` (smoothing ~0.5).
+- The helix uses GSAP ScrollTrigger with `pin: true` and `scrub: 0.6`; it does not use video footage.
+- GSAP/ScrollTrigger and Lenis initialize after first paint. Three/R3F download only when entering the helix. Shared refresh listeners wait for fonts and batch media-load updates.
+- The following video-scrubbing guidance applies only to future uses of the supplied scrub clip:
 - **Video scrubbing needs all-intra video.** Re-encode any scrubbed video so every frame is a keyframe, otherwise it stutters:
   ```bash
   ffmpeg -i input.mp4 -an -vf "scale=1280:-2" -c:v libx264 -g 1 -crf 23 -pix_fmt yuv420p out.mp4
@@ -112,7 +113,7 @@ Transition design: dark sections (hero, helix, order) bookend a light section (f
 - Convert all images to WebP (or AVIF); max ~200 KB each for cards, ~400 KB for hero/backgrounds.
 - Videos: H.264 mp4, target under ~4 MB each for loops; scrubbed video can be larger but lazy-load it.
 - Lazy-load everything below the fold; only the hero video/poster loads eagerly.
-- Lighthouse targets (mobile): Performance 80+, Accessibility 95+.
+- Lighthouse targets (mobile): Performance 80+, Accessibility 95+, Best Practices 95+. See `reports/SITE_VERIFICATION.md` for measured results and limits.
 - No layout shift: set explicit width/height or aspect ratios on all media.
 
 ## Design Direction
@@ -122,17 +123,31 @@ Transition design: dark sections (hero, helix, order) bookend a light section (f
 - One display font for headlines, one clean sans for body.
 - Generous spacing, large imagery, minimal UI chrome.
 
-## Tasks for Codex
+## How to edit
 
-Please inspect the repo and:
+- **Shop identity and contact:** edit `SITE_NAME`, `tagline`, `description`, `orderUrl` and `contact` in `src/config/site.ts`. Null order/social URLs display honest placeholders. Supply real prices and business details before launch.
+- **Public domain:** copy `.env.example` to `.env.local` and set `NEXT_PUBLIC_SITE_URL` to the real HTTPS origin, then rebuild. It supplies absolute Open Graph URLs. Without it, Next.js uses its local metadata fallback; do not publish that configuration.
+- **Menu:** edit `src/data/flavors.ts`: `name`, `tagline`, `price`, `image`, `alt` and background `color`. Prices are strings (for example, your actual currency and amount); `null` retains “Price coming soon”. Choose images from the imported `assets` manifest.
+- **Section copy:** edit the text in `src/components/Hero.tsx`, `FlavorGrid.tsx`, `Interlude.tsx`, `OrderCTA.tsx` and `Footer.tsx`. Hero's one-line tagline comes from site configuration. The three helix beats are `HELIX_COPY` in `src/components/helix/config.ts`.
+- **Helix tuning:** `src/components/helix/config.ts` controls instance counts, stage boundaries, scroll length, scrub smoothing, colors and geometry detail. Material/lighting/camera settings are in `HelixScene.tsx`. See `DEVELOPMENT.md` for defaults and hardware-performance limits.
+- **Media:** place originals in `assets/`; keep the unique filename IDs used by `scripts/optimize-assets.mjs`. With Node 22.19+ and ffmpeg/ffprobe installed, run `npm ci` and `npm run assets:optimize`. This regenerates optimized copies, posters, tiny blur placeholders, both manifests, audit reports and the favicon crop derived from `splash-teal.webp`. Do not hand-edit `src/data/assets.ts` or serve originals. If adding/replacing a source ID, update its mapping in the optimizer first.
+- **Styles:** edit the Tailwind v4 `@theme` tokens and section styles in `src/app/globals.css`. Fonts are self-hosted through `next/font/local` in `src/app/layout.tsx`.
 
-1. Scaffold the Next.js + Tailwind + GSAP project if it does not exist yet.
-2. Write a script (`scripts/optimize-assets.sh` or Node) that renames, converts, and compresses the raw assets into `/public/images` and `/public/video` per the tables above.
-3. Build the sections listed above, starting with Hero and the Helix scroll section.
-4. Implement `/data/flavors.ts` with the 5 flavors and wire up `FlavorGrid`.
-5. Add the reduced-motion and mobile fallbacks.
-6. Run `npm run build` and `npm run lint` and fix issues.
-7. Report anything in the assets that looks wrong (corrupt files, missing files, mismatched ids).
+Verify edits with `npm run lint`, `npm run build` and `npm run test:e2e`. For production audits, start `npm run start -- --port 3200`, then run `npm run audit:mobile` and `npm run bundle:analyze` in another terminal. Override `AUDIT_URL` for another local production server and `CHROME_PATH` for Chromium. Reports are written under `reports/`. A headless mobile audit does not validate physical-phone WebGL FPS or replace a manual keyboard/screen-reader review.
+
+## Tasks for Codex — current state
+
+- [x] Next.js App Router, TypeScript, Tailwind design system and centralized shop configuration.
+- [x] Audited originals, optimized images/videos, posters, blur placeholders and typed asset manifest.
+- [x] Hero, five-flavor grid/mobile carousel, interlude, order section and footer.
+- [x] Real 3D splash → DNA helix → glass scene with responsive quality and static fallbacks.
+- [x] Reduced motion, pause control, lazy loading, offscreen playback/rendering pause and resource cleanup.
+- [x] Font/media-aware scroll refresh, metadata, Open Graph image, favicon and theme color.
+- [x] Lint/build, browser checks, mobile Lighthouse and bundle measurement; see `reports/SITE_VERIFICATION.md` for results and remaining limits.
+- [ ] Replace placeholder identity, prices, ordering/contact/social details and configure the production domain.
+- [ ] Validate 60fps laptop / 30fps phone targets on physical mid-range devices; cloud software-renderer results do not establish them.
+
+The optional Pexels gallery remains omitted because its warm photography clashes with the pastel flavor images. `ASSET_AUDIT.md` records low-resolution/mismatched-aspect-ratio findings; no corrupt source or incorrect ID was found.
 
 ## Acceptance Criteria
 

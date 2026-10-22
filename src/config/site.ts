@@ -2,6 +2,7 @@ export const SITE_NAME = "Juice Shop";
 
 export const site = {
   name: SITE_NAME,
+  url: process.env.NEXT_PUBLIC_SITE_URL || undefined,
   tagline: "A little wild. Freshly squeezed.",
   description: "Five vibrant juice flavors and a brighter kind of everyday.",
   orderUrl: null as string | null,

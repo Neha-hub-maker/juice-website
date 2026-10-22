@@ -92,8 +92,8 @@ export function HelixScroll() {
         ScrollTrigger.refresh();
         restoreAfterUnpin();
       };
-    });
-  }, [enhanced]);
+    }, onFailure);
+  }, [enhanced, onFailure]);
 
   return <section id="ritual" ref={section} className="helix-section section-dark" aria-labelledby="helix-title"
     data-enhanced={enhanced} data-scene-ready={eligible && ready} data-helix-failed={failed}>

@@ -32,7 +32,7 @@ try {
     await page.goto(baseURL);
     await expect(page.locator("#ritual")).toHaveAttribute("data-enhanced", "true");
     await expect(page.locator("#ritual .pin-spacer")).toHaveCount(1);
-    await page.getByRole("link", { name: "Ritual", exact: true }).click();
+    await page.locator(".helix-stage").scrollIntoViewIfNeeded();
     await expect(page.locator("#ritual")).toHaveAttribute("data-scene-ready", "true");
     await page.evaluate(() => {
       const start = document.getElementById("ritual").getBoundingClientRect().top + scrollY - document.querySelector("header").offsetHeight;

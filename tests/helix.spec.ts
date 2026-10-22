@@ -22,7 +22,7 @@ async function prepare(page: Page) {
   await page.goto("/");
   await expect(page.locator("#ritual")).toHaveAttribute("data-enhanced", "true");
   await expect(page.locator("#ritual .pin-spacer")).toHaveCount(1);
-  await page.getByRole("link", { name: "Ritual", exact: true }).click();
+  await page.locator(".helix-stage").scrollIntoViewIfNeeded();
   await expect(page.locator("#ritual")).toHaveAttribute("data-scene-ready", "true");
 }
 
@@ -50,6 +50,7 @@ test("desktop liquid scrubs forward and backward with pinned text beats", async 
   await expect(page.locator("#ritual .pin-spacer")).toHaveCount(1);
   await expect(page.locator("#ritual canvas")).toHaveCount(1);
   expect(await page.locator("#ritual canvas").evaluate(e => (e as HTMLCanvasElement).width / e.clientWidth)).toBeLessThanOrEqual(2);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(1440);
   expect(errors).toEqual([]);
 });
 
